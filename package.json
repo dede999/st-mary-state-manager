@@ -18,9 +18,9 @@
   },
   "scripts": {
     "build": "npx tsc --declaration",
-    "lint": "yarn prettier . --check",
-    "lint:fix": "yarn prettier . --write",
-    "test": "jest"
+    "lint": "npx prettier . --check",
+    "lint:fix": "npx prettier . --write",
+    "test": "npx jest"
   },
   "jest": {
     "collectCoverage": true,
