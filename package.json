@@ -1,0 +1,10 @@
+{
+  "name": "st-mary-state-manager",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "author": "André Luiz Abdalla Silveira",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.6.4"
+  }
+}
