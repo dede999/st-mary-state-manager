@@ -6,6 +6,7 @@
   "license": "MIT",
   "description": "State manager for JS/TS frameworks. Unique approach compared to Redux/Vuex, persists in session storage. Dynamic getters/setters. Named in honor of Mary, Mother of God.",
   "devDependencies": {
-    "jest": "^29.6.4"
+    "jest": "^29.6.4",
+    "prettier": "3.0.2"
   }
 }
