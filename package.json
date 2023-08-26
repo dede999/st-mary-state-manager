@@ -8,5 +8,9 @@
   "devDependencies": {
     "jest": "^29.6.4",
     "prettier": "3.0.2"
+  },
+  "scripts": {
+    "lint": "yarn prettier . --check",
+    "lint:fix": "yarn prettier . --write"
   }
 }
