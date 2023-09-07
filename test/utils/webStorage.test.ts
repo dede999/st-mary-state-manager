@@ -1,13 +1,13 @@
-import WebStorageManager from "../../src/utils/webStorage";
+import WebStorageAdapter from "../../src/utils/webStorage";
 import { StateTypes, StorageUnityType } from "../../src/typings";
 
-class WebStorageManagerWrapper extends WebStorageManager {
+class WebStorageManagerWrapper extends WebStorageAdapter {
   getStorage() {
     return this.storage;
   }
 
   static stringifyValuesWrapper(value: StateTypes) {
-    return WebStorageManager.stringifyValues(value);
+    return WebStorageAdapter.stringifyValues(value);
   }
 
   setStorageMock(storageMock: Storage) {
@@ -16,6 +16,7 @@ class WebStorageManagerWrapper extends WebStorageManager {
 }
 
 describe("WebStorageManager class", () => {
+  let storageAdapter: WebStorageManagerWrapper;
   const getItemMock = jest.fn();
   const setItemMock = jest.fn();
 
@@ -29,7 +30,7 @@ describe("WebStorageManager class", () => {
       { scenario: "undefined", value: undefined, result: "undefined" },
       { scenario: "null", value: null, result: "null" },
       { scenario: "a number", value: 42, result: "42" },
-      { scenario: "a string", value: "a word", result: "a word" },
+      { scenario: "a string", value: "a word", result: '"a word"' },
       { scenario: "a boolean", value: true, result: "true" },
       {
         scenario: "an array of numbers",
@@ -74,7 +75,6 @@ describe("WebStorageManager class", () => {
   });
 
   describe("getItem", () => {
-    let storageAdapter: WebStorageManagerWrapper;
     let result: number | undefined;
 
     describe.each([
@@ -95,5 +95,17 @@ describe("WebStorageManager class", () => {
         });
       },
     );
+  });
+
+  describe("setItem", () => {
+    beforeEach(() => {
+      storageAdapter = new WebStorageManagerWrapper("local");
+      storageAdapter.setStorageMock(storageMock);
+      storageAdapter.setItem("key", 42);
+    });
+
+    it("is expected to have set an item info", () => {
+      expect(setItemMock).toHaveBeenCalledWith("key", "42");
+    });
   });
 });

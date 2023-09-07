@@ -4,7 +4,7 @@ import {
   WebStorageUnityType,
 } from "../typings";
 
-export default class WebStorageManager implements StoreManagementAdapter {
+export default class WebStorageAdapter implements StoreManagementAdapter {
   protected storage: Storage;
 
   protected static stringifyValues(value: StateTypes) {
@@ -17,7 +17,7 @@ export default class WebStorageManager implements StoreManagementAdapter {
       } else return `[${value.map((value) => `"${value}"`).toString()}]`;
     }
 
-    return value.toString();
+    return typeof value === "string" ? `"${value}"` : value.toString();
   }
 
   constructor(unityName: WebStorageUnityType) {
@@ -27,5 +27,9 @@ export default class WebStorageManager implements StoreManagementAdapter {
 
   getItem(key: string) {
     return eval(this.storage.getItem(key) ?? "");
+  }
+
+  setItem(key: string, value: StateTypes) {
+    this.storage.setItem(key, WebStorageAdapter.stringifyValues(value));
   }
 }
