@@ -1,9 +1,13 @@
 import WebStorageManager from "../../src/utils/webStorage";
-import { StorageUnityType } from "../../src/typings";
+import { StateTypes, StorageUnityType } from "../../src/typings";
 
 class WebStorageManagerWrapper extends WebStorageManager {
   getStorage() {
     return this.storage;
+  }
+
+  static stringifyValuesWrapper(value: StateTypes) {
+    return WebStorageManager.stringifyValues(value);
   }
 
   setStorageMock(storageMock: Storage) {
@@ -19,6 +23,37 @@ describe("WebStorageManager class", () => {
     getItem: getItemMock,
     setItem: setItemMock,
   } as unknown as Storage;
+
+  describe("stringifyValues", () => {
+    describe.each([
+      { scenario: "undefined", value: undefined, result: "undefined" },
+      { scenario: "null", value: null, result: "null" },
+      { scenario: "a number", value: 42, result: "42" },
+      { scenario: "a string", value: "a word", result: "a word" },
+      { scenario: "a boolean", value: true, result: "true" },
+      {
+        scenario: "an array of numbers",
+        value: [42, 3.1415],
+        result: "[42,3.1415]",
+      },
+      {
+        scenario: "an array of string",
+        value: ["word1", "word2"],
+        result: '["word1","word2"]',
+      },
+      {
+        scenario: "an array of booleans",
+        value: [true, false],
+        result: "[true,false]",
+      },
+    ])("when value is $scenario", ({ value, result }) => {
+      it(`is expected to have returned "${result}"`, () => {
+        expect(WebStorageManagerWrapper.stringifyValuesWrapper(value)).toEqual(
+          result,
+        );
+      });
+    });
+  });
 
   describe("constructor", () => {
     describe.each([
