@@ -7,4 +7,8 @@ export default class WebStorageManager implements StoreManagementAdapter {
     if (unityName === "local") this.storage = window.localStorage;
     else this.storage = window.sessionStorage;
   }
+
+  getItem(key: string) {
+    return eval(this.storage.getItem(key) ?? "");
+  }
 }
