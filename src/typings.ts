@@ -16,8 +16,11 @@ export abstract class StoreManagementAdapter {
   abstract getItem: (key: string) => StateTypes;
 }
 
-export interface createStoreParameters<T extends InitialStatePrototype> {
-  name: string;
+export interface createStoreParameters<
+  T extends InitialStatePrototype,
+  K extends StoreManagementAdapter,
+> {
+  title: string;
   initialState: T;
-  storageAdapter: StorageUnityType;
+  storageAdapter: K;
 }
