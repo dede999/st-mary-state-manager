@@ -7,17 +7,18 @@ import {
 export default class WebStorageAdapter implements StoreManagementAdapter {
   protected storage: Storage;
 
+  protected static stringifyValue(value: number | string | boolean) {
+    return typeof value === "string" ? `"${value}"` : value.toString();
+  }
+
   protected static stringifyValues(value: StateTypes) {
     if (!value) return `${value}`;
 
     if (typeof value === "object") {
-      const first = value.at(0);
-      if (first && typeof first !== "string") {
-        return `[${value.toString()}]`;
-      } else return `[${value.map((value) => `"${value}"`).toString()}]`;
+      return `[${value.map(this.stringifyValue)}]`;
     }
 
-    return typeof value === "string" ? `"${value}"` : value.toString();
+    return this.stringifyValue(value);
   }
 
   constructor(unityName: WebStorageUnityType) {

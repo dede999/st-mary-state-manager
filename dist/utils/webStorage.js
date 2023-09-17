@@ -1,18 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 class WebStorageAdapter {
+    static stringifyValue(value) {
+        return typeof value === "string" ? `"${value}"` : value.toString();
+    }
     static stringifyValues(value) {
         if (!value)
             return `${value}`;
         if (typeof value === "object") {
-            const first = value.at(0);
-            if (first && typeof first !== "string") {
-                return `[${value.toString()}]`;
-            }
-            else
-                return `[${value.map((value) => `"${value}"`).toString()}]`;
+            return `[${value.map(this.stringifyValue)}]`;
         }
-        return typeof value === "string" ? `"${value}"` : value.toString();
+        return this.stringifyValue(value);
     }
     constructor(unityName) {
         if (unityName === "local")

@@ -47,6 +47,11 @@ describe("WebStorageManager class", () => {
         value: [true, false],
         result: "[true,false]",
       },
+      {
+        scenario: "an array of multiple types",
+        value: [true, false, "0", 1, 2],
+        result: '[true,false,"0",1,2]',
+      },
     ])("when value is $scenario", ({ value, result }) => {
       it(`is expected to have returned "${result}"`, () => {
         expect(WebStorageManagerWrapper.stringifyValuesWrapper(value)).toEqual(
@@ -78,6 +83,10 @@ describe("WebStorageManager class", () => {
     let result: number | undefined;
 
     describe.each([
+      {
+        mockedGetValue: '[0, "word", false]',
+        expectedValue: [0, "word", false],
+      },
       { mockedGetValue: "42", expectedValue: 42 },
       { mockedGetValue: null, expectedValue: undefined },
     ])(
