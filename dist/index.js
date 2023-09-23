@@ -1,48 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StMaryStore = void 0;
-class StMaryStore {
-    constructor(title, initialState, adapter) {
-        this.title = title;
-        this.initialState = initialState;
-        this.adapter = adapter;
-        this.meta = {};
-        this.getters = {};
-        this.setters = {};
-    }
-    static capitalizeFirstLetter(s) {
-        return s.charAt(0).toUpperCase() + s.slice(1);
-    }
-    defineGetters(key) {
-        this.getters[`get${StMaryStore.capitalizeFirstLetter(key)}`] = () => this.adapter.getItem(`${this.title}:${key}`);
-    }
-    defineSetters(key) {
-        this.setters[`set${StMaryStore.capitalizeFirstLetter(key)}`] = (value) => this.adapter.setItem(`${this.title}:${key}`, value);
-    }
-    addMetaKey(key) {
-        this.meta[key] = {
-            initialValue: this.initialState[key],
-            setter: this.setters[`set${StMaryStore.capitalizeFirstLetter(key)}`],
-        };
-    }
-    resetMethod() {
-        Object.keys(this.meta).forEach((key) => {
-            const { initialValue, setter } = this.meta[key];
-            setter(initialValue);
-        });
-    }
-    setup() {
-        Object.keys(this.initialState).forEach((key) => {
-            this.defineGetters(key);
-            this.defineSetters(key);
-            this.addMetaKey(key);
-        });
-        this.resetMethod();
-    }
-    static createStore({ title, initialState, storageAdapter, }) {
-        const instance = new StMaryStore(title, initialState, storageAdapter);
-        instance.setup();
-        return Object.assign(Object.assign(Object.assign({}, instance.setters), instance.getters), { reset: instance.resetMethod });
-    }
-}
-exports.StMaryStore = StMaryStore;
+exports.WebStorageAdapter = exports.StMaryStore = exports.StoreManagementAdapter = void 0;
+const appTypes_1 = require("./appTypes");
+Object.defineProperty(exports, "StoreManagementAdapter", { enumerable: true, get: function () { return appTypes_1.StoreManagementAdapter; } });
+const stMaryStore_1 = require("./lib/stMaryStore");
+exports.StMaryStore = stMaryStore_1.default;
+const webStorage_1 = require("./utils/webStorage");
+exports.WebStorageAdapter = webStorage_1.default;
