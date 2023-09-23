@@ -8,5 +8,5 @@
     "strict": true
   },
   "include": ["src/**/*"],
-  "exclude": ["test/**/*", "node_modules"]
+  "exclude": ["test/**/*", "node_modules", "src/sandBox.ts"]
 }
