@@ -1,5 +1,5 @@
 import WebStorageAdapter from "../../src/utils/webStorage";
-import { StateTypes, StorageUnityType } from "../../src/typings";
+import { StateTypes, StorageUnityType } from "../../src";
 
 class WebStorageManagerWrapper extends WebStorageAdapter {
   getStorage() {

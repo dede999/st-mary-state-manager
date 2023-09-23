@@ -1,5 +1,5 @@
-import { StMaryStore } from "../src";
-import WebStorageAdapter from "../src/utils/webStorage";
+import { StMaryStore } from "../../src";
+import WebStorageAdapter from "../../src/utils/webStorage";
 
 const sampleObject = {
   key1: "value1",

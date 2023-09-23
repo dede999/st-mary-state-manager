@@ -1,4 +1,4 @@
-import { StateTypes, StoreManagementAdapter, WebStorageUnityType } from "../typings";
+import { StateTypes, StoreManagementAdapter, WebStorageUnityType } from "../appTypes";
 export default class WebStorageAdapter implements StoreManagementAdapter {
     protected storage: Storage;
     protected static stringifyValue(value: number | string | boolean): string;

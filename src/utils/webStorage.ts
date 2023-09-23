@@ -2,7 +2,7 @@ import {
   StateTypes,
   StoreManagementAdapter,
   WebStorageUnityType,
-} from "../typings";
+} from "../appTypes";
 
 export default class WebStorageAdapter implements StoreManagementAdapter {
   protected storage: Storage;
