@@ -9,7 +9,7 @@ import {
 } from "./appTypes";
 
 import { DefaultInitialType, DefaultAdapter } from "./lib/stMaryStore";
-import StMaryStore from "./lib/stMaryStore";
+import StMaryStore, { createStore } from "./lib/stMaryStore";
 
 import WebStorageAdapter from "./utils/webStorage";
 
@@ -24,5 +24,6 @@ export {
   DefaultInitialType,
   DefaultAdapter,
   StMaryStore,
+  createStore,
   WebStorageAdapter,
 };

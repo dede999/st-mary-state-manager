@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createStore = void 0;
 class StMaryStore {
     constructor(title, initialState, adapter) {
         this.title = title;
@@ -45,3 +46,4 @@ class StMaryStore {
     }
 }
 exports.default = StMaryStore;
+exports.createStore = StMaryStore.createStore;

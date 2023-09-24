@@ -81,3 +81,5 @@ export default class StMaryStore<
     };
   }
 }
+
+export const createStore = StMaryStore.createStore;

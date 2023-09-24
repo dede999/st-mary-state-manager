@@ -23,3 +23,4 @@ export default class StMaryStore<T extends InitialStatePrototype = DefaultInitia
         reset: () => void;
     };
 }
+export declare const createStore: typeof StMaryStore.createStore;
