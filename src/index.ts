@@ -8,7 +8,6 @@ import {
   createStoreParameters,
 } from "./appTypes";
 
-import { DefaultInitialType, DefaultAdapter } from "./lib/stMaryStore";
 import StMaryStore, { createStore } from "./lib/stMaryStore";
 
 import WebStorageAdapter from "./utils/webStorage";
@@ -21,8 +20,6 @@ export {
   StorageUnityType,
   StoreManagementAdapter,
   createStoreParameters,
-  DefaultInitialType,
-  DefaultAdapter,
   StMaryStore,
   createStore,
   WebStorageAdapter,

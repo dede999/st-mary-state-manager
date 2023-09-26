@@ -1,20 +1,14 @@
 import {
+  Adapter,
   createStoreParameters,
   InitialStatePrototype,
-  StoreManagementAdapter,
 } from "../appTypes";
 
-export type DefaultInitialType = InitialStatePrototype;
-export type DefaultAdapter = StoreManagementAdapter;
-
-export default class StMaryStore<
-  T extends InitialStatePrototype = DefaultInitialType,
-  K extends StoreManagementAdapter = DefaultAdapter,
-> {
+export default class StMaryStore<I extends InitialStatePrototype> {
   protected constructor(
     protected title: string,
-    protected initialState: T,
-    protected adapter: K,
+    protected initialState: I,
+    protected adapter: Adapter,
   ) {}
   meta: any = {};
   getters: any = {};
@@ -58,21 +52,22 @@ export default class StMaryStore<
     this.resetMethod();
   }
 
-  static createStore<
-    T extends InitialStatePrototype,
-    K extends StoreManagementAdapter,
-  >({
+  static createStore<T>({
     title,
     initialState,
     storageAdapter,
-  }: createStoreParameters<T, K>): {
+  }: createStoreParameters<T>): {
     [M in keyof T as `get${Capitalize<string & M>}`]: () => T[M];
   } & {
     [M in keyof T as `set${Capitalize<string & M>}`]: (value: T[M]) => void;
   } & {
     reset: () => void;
   } {
-    const instance = new StMaryStore(title, initialState, storageAdapter);
+    const instance = new StMaryStore(
+      title,
+      initialState as InitialStatePrototype,
+      storageAdapter,
+    );
     instance.setup();
     return {
       ...instance.setters,
